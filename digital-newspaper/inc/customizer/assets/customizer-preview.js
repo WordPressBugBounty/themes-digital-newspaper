@@ -523,4 +523,39 @@
 			}
 		}
 	}
+
+	// Background animation
+	wp.customize( 'background_animation_option', function( value ) {
+		value.bind( function( to ) {
+			$( 'body' ).removeClass( 'background-animation--none background-animation--one background-animation--two background-animation--three' ).addClass( 'background-animation--' + to )
+			if( to === 'none' ) {
+				$( 'body' ).removeClass( 'background-animation--enabled' )
+			} else {
+				$( 'body' ).addClass( 'background-animation--enabled' )
+			}
+		})
+	})
+
+	// animation object color
+	wp.customize( 'background_animation_object_color', function( value ) {
+		value.bind( function( color ) {
+			console.log( color )
+			themeCalls.digitalNewspaperGenerateStyleTag( 'body.digital_newspaper_font_typography { --digital-newspaper-animation-object-color : ' + helperFunctions.getFormatedColor( color ) + '; }', 'digital-newspaper-animation-object-color' )
+		})
+	})
+
+	// cursor animation
+	wp.customize( 'cursor_animation', function( value ) {
+		value.bind( function(to) {
+			if( to !== 'none' ) {
+				console.log( $('body .digital-newspaper-cursor').length <= 0 )
+				if( $('body .digital-newspaper-cursor').length <= 0 ) {
+					$( 'body #page.site' ).append( '<div class="digital-newspaper-cursor"></div>' )
+				}
+				$('body .digital-newspaper-cursor').removeClass( 'type--one type--two' ).addClass( 'type--' + to )
+			} else {
+				$('body .digital-newspaper-cursor').removeClass( 'type--one type--two' )
+			}
+		});
+	});
 }( jQuery ) );

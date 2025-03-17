@@ -7,22 +7,7 @@
  * @package Digital Newspaper
  */
 use Digital_Newspaper\CustomizerDefault as DN;
-get_header();
-
-if( did_action( 'elementor/loaded' ) && class_exists( 'Nekit_Render_Templates_Html' ) ) :
-	$Nekit_render_templates_html = new Nekit_Render_Templates_Html();
-	if( $Nekit_render_templates_html->is_template_available('archive') ) {
-		$archive_rendered = true;
-		echo $Nekit_render_templates_html->current_builder_template();
-	} else {
-		$archive_rendered = false;
-	}
-else :
-	$archive_rendered = false;
-endif;
-
-if( ! $archive_rendered ) :
-	?>
+get_header(); ?>
 	<div id="theme-content">
 		<?php
 			/**
@@ -92,6 +77,5 @@ if( ! $archive_rendered ) :
 
 		</main><!-- #main -->
 	</div><!-- #theme-content -->
-	<?php
-endif;
+<?php
 get_footer();

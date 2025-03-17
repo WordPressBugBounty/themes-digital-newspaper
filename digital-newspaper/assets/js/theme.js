@@ -491,4 +491,20 @@ jQuery(document).ready(function($) {
         var postHide = "#post-" + featuredPost.data("id")
         $(postHide).addClass( "sticky-hide" );
     }
+
+     // cursor animation
+     var cursorContainer = $('.digital-newspaper-cursor')
+     if( cursorContainer.length > 0 ) {
+        $(document).on( 'mousemove', function( event ){
+            cursorContainer[0].style.top = 'calc('+ event.pageY +'px - 15px)'
+            cursorContainer[0].style.left = 'calc('+ event.pageX +'px - 15px)'
+        })
+        var selector = 'a, button, input[type="submit"], .blaze-switcher-button, #digital-newspaper-scroll-to-top'
+        $( selector ).on( 'mouseover', function(){
+            $( cursorContainer ).addClass( 'isActive' )
+        })
+        $( selector ).on( 'mouseout', function(){
+            $( cursorContainer ).removeClass( 'isActive' )
+        })
+    }
 })

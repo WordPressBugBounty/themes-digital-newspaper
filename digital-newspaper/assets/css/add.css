@@ -88,6 +88,10 @@ body.search-popup--style-one .search_close_btn,
     z-index: 1;
 }
 
+.search-popup--style-three.logged-in .site-header.layout--default .search-form-wrap {
+    top: 32px;
+}
+
 .search-popup--style-three .site-header.layout--default .search-form-wrap form {
     width: 60%;
     margin: 0 auto;
@@ -131,6 +135,10 @@ body.search-popup--style-one .search_close_btn,
     right: 20px;
     top: 20px;
     z-index: 2;
+}
+
+.search-popup--style-three.logged-in .search_close_btn {
+    top: 52px;
 }
 
 .search-popup--style-three .search_close_btn:hover {

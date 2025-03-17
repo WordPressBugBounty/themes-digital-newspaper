@@ -773,7 +773,7 @@ if( !function_exists( 'digital_newspaper_customizer_global_panel' ) ) :
             new Digital_Newspaper_WP_Radio_Image_Control( $wp_customize, 'website_block_title_layout',
             array(
                 'section'  => 'digital_newspaper_website_layout_section',
-                'choices'  => array(
+                'choices'  => apply_filters( 'digital_newspaper_block_title_layout_option_filter', array(
                     'layout-one' => array(
                         'label' => esc_html__( 'Layout One', 'digital-newspaper' ),
                         'url'   => '%s/assets/images/customizer/block-title-layout-one.jpg'
@@ -782,7 +782,7 @@ if( !function_exists( 'digital_newspaper_customizer_global_panel' ) ) :
                         'label' => esc_html__( 'Layout Four', 'digital-newspaper' ),
                         'url'   => '%s/assets/images/customizer/block-title-layout-four.jpg'
                     )
-                )
+                ))
             )
         ));
 
@@ -815,11 +815,11 @@ if( !function_exists( 'digital_newspaper_customizer_global_panel' ) ) :
             'section'   => 'digital_newspaper_animation_section',
             'label'     => esc_html__( 'Post title hover effects', 'digital-newspaper' ),
             'description' => esc_html__( 'Applied to post titles listed in archive pages.', 'digital-newspaper' ),
-            'choices'   => array(
+            'choices'   => apply_filters( 'digital_newspaper_post_title_hover_effects_filter', array(
                 'none' => __( 'None', 'digital-newspaper' ),
                 'one'  => __( 'Effect One', 'digital-newspaper' ),
                 'four'   => __( 'Effect Two', 'digital-newspaper' )
-            )
+            ))
         ));
 
         // site image animation effects 
@@ -837,6 +837,23 @@ if( !function_exists( 'digital_newspaper_customizer_global_panel' ) ) :
                 'none' => __( 'None', 'digital-newspaper' ),
                 'six'   => __( 'Effect One', 'digital-newspaper' )
             )
+        ));
+
+        // site image animation effects 
+        $wp_customize->add_setting( 'cursor_animation', array(
+            'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'default'   => DN\digital_newspaper_get_customizer_default( 'cursor_animation' ),
+            'transport' => 'postMessage'
+        ));
+        $wp_customize->add_control( 'cursor_animation', array(
+            'type'      => 'select',
+            'section'   => 'digital_newspaper_animation_section',
+            'label'     => esc_html__( 'Cursor animation', 'digital-newspaper' ),
+            'description' => esc_html__( 'Applied to mouse pointer.', 'digital-newspaper' ),
+            'choices'   => [
+                'none' => esc_html__( 'None', 'digital-newspaper' ),
+                'one'  => esc_html__( 'Animation 1', 'digital-newspaper' )
+            ]
         ));
 
         // section- social icons section
@@ -1821,6 +1838,7 @@ if( !function_exists( 'digital_newspaper_customizer_header_panel' ) ) :
         $wp_customize->add_control( 
             new Digital_Newspaper_WP_Section_Tab_Control( $wp_customize, 'main_header_section_tab', array(
                 'section'     => 'digital_newspaper_main_header_section',
+                'priority' => 1,
                 'choices'  => array(
                     array(
                         'name'  => 'general',
@@ -2560,7 +2578,7 @@ if( !function_exists( 'digital_newspaper_customizer_main_banner_panel' ) ) :
             array(
                 'section'  => 'digital_newspaper_main_banner_section',
                 'priority' => 10,
-                'choices'  => array(
+                'choices'  => apply_filters( 'digital_newspaper_banner_layouts_choices_filter', array(
                     'five' => array(
                         'label' => esc_html__( 'Layout Five', 'digital-newspaper' ),
                         'url'   => '%s/assets/images/customizer/main_banner_five.jpg'
@@ -2569,7 +2587,7 @@ if( !function_exists( 'digital_newspaper_customizer_main_banner_panel' ) ) :
                         'label' => esc_html__( 'Layout six', 'digital-newspaper' ),
                         'url'   => '%s/assets/images/customizer/main_banner_six.jpg'
                     )
-                )
+                ))
             )
         ));
 
@@ -2899,7 +2917,13 @@ if( !function_exists( 'digital_newspaper_customizer_main_banner_panel' ) ) :
                         'value' => 'title',
                         'label' => esc_html__('By title', 'digital-newspaper' )
                     )
-                )
+                ),
+                'active_callback'   => function( $setting ) {
+                    if ( $setting->manager->get_setting( 'main_banner_layout' )->value() === 'six' ) {
+                        return true;
+                    }
+                    return false;
+                }
             ))
         );
 
@@ -3949,7 +3973,7 @@ if( !function_exists( 'digital_newspaper_customizer_blog_post_archive_panel' ) )
             array(
                 'section'  => 'digital_newspaper_blog_archive_section',
                 'priority' => 10,
-                'choices'  => array(
+                'choices'  => apply_filters( 'digital_newspaper_blog_archive_layout_choices_filter', array(
                     'one' => array(
                         'label' => esc_html__( 'Layout One', 'digital-newspaper' ),
                         'url'   => '%s/assets/images/customizer/archive_one.jpg'
@@ -3959,7 +3983,7 @@ if( !function_exists( 'digital_newspaper_customizer_blog_post_archive_panel' ) )
                         'url'   => '%s/assets/images/customizer/archive_two.jpg'
                     )
                 )
-            )
+            ))
         ));
 
         // archive pagination type
@@ -4355,6 +4379,49 @@ if( !function_exists( 'digital_newspaper_customizer_page_panel' ) ) :
                 )
             )
         ));
+
+        // Animation Settings
+        $wp_customize->add_setting( 'background_animation_header', array(
+            'sanitize_callback' => 'sanitize_text_field'
+        ));
+        $wp_customize->add_control( 
+            new Digital_Newspaper_WP_Section_Heading_Control( $wp_customize, 'background_animation_header', array(
+                'label'	      => esc_html__( 'Background Animation', 'digital-newspaper' ),
+                'section'     => 'background_image',
+                'settings'    => 'background_animation_header'
+            ))
+        );
+
+        // Background animation option
+        $wp_customize->add_setting( 'background_animation_option', array(
+            'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' => 'postMessage',
+            'default'   => DN\digital_newspaper_get_customizer_default( 'background_animation_option' )
+        ));
+        $wp_customize->add_control( 'background_animation_option', array(
+            'type'      => 'select',
+            'section'   => 'background_image',
+            'label'     => esc_html__( 'Background Animation', 'digital-newspaper' ),
+            'choices'   => array(
+                'none'  => __( 'None', 'digital-newspaper' ),
+                'two'   => __( 'Animation 1', 'digital-newspaper' ),
+                'three'   => __( 'Animation 2', 'digital-newspaper' )
+            )
+        ));
+
+        // Animation object color
+        $wp_customize->add_setting( 'background_animation_object_color', array(
+            'default'   => DN\digital_newspaper_get_customizer_default( 'background_animation_object_color' ),
+            'transport' => 'postMessage',
+            'sanitize_callback' => 'digital_newspaper_sanitize_color_picker_control'
+        ));
+        $wp_customize->add_control( 
+            new Digital_Newspaper_WP_Color_Picker_Control( $wp_customize, 'background_animation_object_color', array(
+                'label'	      => esc_html__( 'Animation Object Color', 'digital-newspaper' ),
+                'section'     => 'background_image',
+                'settings'    => 'background_animation_object_color'
+            ))
+        );
     }
     add_action( 'customize_register', 'digital_newspaper_customizer_page_panel', 10 );
 endif;

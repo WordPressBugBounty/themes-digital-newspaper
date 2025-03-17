@@ -16,7 +16,7 @@ if( ! function_exists( 'digital_newspaper_assign_preset_var' ) ) :
    function digital_newspaper_assign_preset_var( $selector, $control) {
          $decoded_control =  DN\digital_newspaper_get_customizer_option( $control );
          if( ! $decoded_control ) return;
-         echo " body.digital_newspaper_font_typography{ " . $selector . ": ".esc_html( $decoded_control ).  ";}\n";
+         echo " body.digital_newspaper_font_typography{ " . $selector . ": ".digital_newspaper_get_color_format( $decoded_control ).  ";}\n";
    }
 endif;
 

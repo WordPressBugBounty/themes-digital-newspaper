@@ -106,6 +106,25 @@ if( !function_exists( 'digital_newspaper_header_html' ) ) :
                     </div>
                 </div>
             </div>
+            <?php
+                if( DN\digital_newspaper_get_customizer_option( 'header_layout' ) != 'three' ) :
+            ?>
+                    <div class="menu-section">
+                        <div class="digital-newspaper-container">
+                            <div class="row">
+                                <?php
+                                    /**
+                                     * hook - digital_newspaper_header__menu_section_hook
+                                     * 
+                                     * @hooked - digital_newspaper_header_menu_part - 10
+                                     * @hooked - digital_newspaper_header_search_part - 20
+                                     */
+                                    if( has_action( 'digital_newspaper_header__menu_section_hook' ) ) do_action( 'digital_newspaper_header__menu_section_hook' );
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+            <?php endif; ?>
         </div>
         <?php
     }

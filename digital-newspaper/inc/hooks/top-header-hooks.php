@@ -114,7 +114,7 @@ endif;
    add_action( 'digital_newspaper_top_header_hook', 'digital_newspaper_top_header_social_part', 15 );
 endif;
 
-if( ! function_exists( 'digital_newspaper_top_header_newsletter_part' ) ) :
+if( ! function_exists( 'digital_newspaper_top_header_newsletter_part' ) && DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'three' ) :
    /**
     * Header newsletter element
     * 
@@ -138,7 +138,7 @@ if( ! function_exists( 'digital_newspaper_top_header_newsletter_part' ) ) :
     add_action( 'digital_newspaper_top_header_hook', 'digital_newspaper_top_header_newsletter_part', 20 );
 endif;
 
-if( ! function_exists( 'digital_newspaper_top_header_random_news_part' ) ) :
+if( ! function_exists( 'digital_newspaper_top_header_random_news_part' ) && DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'three' ) :
    /**
     * Header random news element
     * 

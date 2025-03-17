@@ -76,6 +76,10 @@ function digital_newspaper_body_classes( $classes ) {
 		$classes[] = esc_attr( 'post-layout--'. $archive_page_layout );
 		$classes[] = esc_attr( $archive_sidebar_layout );
 	endif;
+
+	$background_animation_option = DN\digital_newspaper_get_customizer_option( 'background_animation_option' );
+	$classes[] = 'background-animation--' . $background_animation_option;
+	if( $background_animation_option !== 'none' ) $classes[] = 'background-animation--enabled';
 	return $classes;
 }
 add_filter( 'body_class', 'digital_newspaper_body_classes' );
@@ -208,6 +212,8 @@ if( ! function_exists( 'digital_newspaper_current_styles' ) ) :
 				digital_newspaper_text_color_var($identifier,$id);
 			};
 			digital_newspaper_get_background_style_var('--site-bk-color', 'site_background_color');
+
+			digital_newspaper_assign_preset_var( "--digital-newspaper-animation-object-color", "background_animation_object_color" );
 
 			digital_newspaper_visibility_options('.ads-banner','header_ads_banner_responsive_option');
 			digital_newspaper_visibility_options('body #digital-newspaper-scroll-to-top.show','stt_responsive_option');
@@ -662,7 +668,7 @@ if( ! function_exists( 'digital_newspaper_add_menu_description' ) ) :
 		if($args->theme_location != 'menu-2') return $item_output;
 		
 		if ( !empty( $item->description ) ) {
-			$item_output = str_replace( $args->link_after . '</a>', '<span class="menu-item-description">' . $item->description . '</span>' . $args->link_after . '</a>', $item_output );
+			$item_output = str_replace( $args->link_after . '</a>', '<span class="menu-item-description-wrap"><span class="menu-item-description">' . $item->description . '</span></span>' . $args->link_after . '</a>', $item_output );
 		}
 		return $item_output;
 	}

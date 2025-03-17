@@ -9,19 +9,6 @@
  * @package Digital Newspaper
  */
 
-if( did_action( 'elementor/loaded' ) && class_exists( 'Nekit_Render_Templates_Html' ) ) :
-	$Nekit_render_templates_html = new Nekit_Render_Templates_Html();
-	if( $Nekit_render_templates_html->is_template_available('footer') ) {
-		$footer_rendered = true;
-		echo $Nekit_render_templates_html->current_builder_template();
-	} else {
-		$footer_rendered = false;
-	}
-else :
-	$footer_rendered = false;
-endif;
-
-if( ! $footer_rendered ) :
 	/**
 	 * hook - digital_newspaper_before_footer_section
 	* 
@@ -57,8 +44,14 @@ if( ! $footer_rendered ) :
 		if( has_action( 'digital_newspaper_after_footer_hook' ) ) {
 			do_action( 'digital_newspaper_after_footer_hook' );
 		}
+
+		/**
+		* hook - digital_newspaper_animation_hook
+		*
+		* @hooked - digital_newspaper_get_background_and_cursor_animation
+		*/
+		if( has_action( 'digital_newspaper_animation_hook' ) ) do_action( 'digital_newspaper_animation_hook' );
 	?>
-<?php endif; ?>
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

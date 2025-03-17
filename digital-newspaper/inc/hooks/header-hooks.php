@@ -57,9 +57,83 @@ use Digital_Newspaper\CustomizerDefault as DN;
         <?php
         endif;
      }
-    add_action( 'digital_newspaper_after_header_hook', 'digital_newspaper_header_ads_banner_part', 10 );
+     if( DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'two' ) { 
+        add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_header_ads_banner_part', 20 );
+    } else {
+        add_action( 'digital_newspaper_after_header_hook', 'digital_newspaper_header_ads_banner_part', 10 );
+    }
  endif;
 
+ if( ! function_exists( 'digital_newspaper_plus_header_newsletter_part' ) ) :
+    /**
+     * Header newsletter element
+     * 
+     * @since 1.0.0
+     */
+     function digital_newspaper_plus_header_newsletter_part() {
+        if( ! DN\digital_newspaper_get_customizer_option( 'header_newsletter_option' ) || DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'three' ) return;
+        $header_newsletter_label = DN\digital_newspaper_get_customizer_option( 'header_newsletter_label' );
+        $header_newsletter_redirect_href_link = DN\digital_newspaper_get_customizer_option( 'header_newsletter_redirect_href_link' );
+        ?>
+            <div class="newsletter-element" <?php if( isset($header_newsletter_label['text']) && !empty($header_newsletter_label['text']) ) echo 'title="' . esc_attr( $header_newsletter_label['text'] ) . '"'; ?>>
+                <a href="<?php echo esc_url( $header_newsletter_redirect_href_link ); ?>" target="_blank" data-popup="redirect">
+                    <?php
+                        if( isset($header_newsletter_label['icon']) && !empty($header_newsletter_label['icon']) ) echo '<span class="title-icon"><i class="' .esc_attr($header_newsletter_label['icon']). '"></i></span>';
+                        if( isset($header_newsletter_label['text']) && !empty(isset($header_newsletter_label['text'])) ) echo '<span class="title-text">' .esc_html($header_newsletter_label['text']). '</span>';
+                    ?>
+                </a>
+            </div><!-- .newsletter-element -->
+        <?php
+     }
+    if( DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'one' ) {
+        add_action( 'digital_newspaper_header__site_branding_section_hook', function() {
+            if( ! DN\digital_newspaper_get_customizer_option( 'header_newsletter_option' ) && ! DN\digital_newspaper_get_customizer_option( 'header_random_news_option' ) ) return;
+            echo '<div class="header-right-button-wrap">';
+        }, 29 );
+        add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_plus_header_newsletter_part', 30 );
+    } else {
+        add_action( 'digital_newspaper_header__menu_section_hook', 'digital_newspaper_plus_header_newsletter_part', 45 );
+    }
+ endif;
+
+ if( ! function_exists( 'digital_newspaper_plus_header_random_news_part' ) ) :
+    /**
+     * Header random news element
+     * 
+     * @since 1.0.0
+     */
+     function digital_newspaper_plus_header_random_news_part() {
+        if( ! DN\digital_newspaper_get_customizer_option( 'header_random_news_option' ) || DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'three' ) return;
+        $header_random_news_label = DN\digital_newspaper_get_customizer_option( 'header_random_news_label' );
+        $header_random_news_link_to_single_news_option = DN\digital_newspaper_get_customizer_option( 'header_random_news_link_to_single_news_option' );
+        if( $header_random_news_link_to_single_news_option ) {
+            $button_url = digital_newspaper_get_random_news_url();
+        } else {
+            $header_random_news_filter = DN\digital_newspaper_get_customizer_option( 'header_random_news_filter' );
+            $button_url = add_query_arg( array( 'digitalNewspaperargs' => 'custom', 'posts'  => esc_attr( $header_random_news_filter ) ), home_url() );
+        }
+        ?>
+            <div class="random-news-element" <?php if( isset($header_random_news_label['text']) && !empty($header_random_news_label['text']) ) echo 'title="' . esc_attr( $header_random_news_label['text'] ) . '"'; ?>>
+                <a href="<?php echo esc_url($button_url); ?>" target="_blank">
+                    <?php
+                        if( isset($header_random_news_label['icon']) && !empty($header_random_news_label['icon']) ) echo '<span class="title-icon"><i class="' .esc_attr($header_random_news_label['icon']). '"></i></span>';
+                        if( isset($header_random_news_label['text']) && !empty($header_random_news_label['text']) ) echo '<span class="title-text">' .esc_html($header_random_news_label['text']). '</span>';
+                    ?>
+                </a>
+            </div><!-- .random-news-element -->
+        <?php
+     }
+    if( DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'one' ) { 
+        add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_plus_header_random_news_part', 30 );
+        add_action( 'digital_newspaper_header__site_branding_section_hook', function() {
+            if( ! DN\digital_newspaper_get_customizer_option( 'header_newsletter_option' ) && ! DN\digital_newspaper_get_customizer_option( 'header_random_news_option' ) ) return;
+            echo '</div><!-- .header-right-button-wrap -->';
+        }, 31 );
+    } else {
+        add_action( 'digital_newspaper_header__menu_section_hook', 'digital_newspaper_plus_header_random_news_part', 45 );
+    }
+ endif;
+ 
  if( ! function_exists( 'digital_newspaper_header_sidebar_toggle_part' ) ) :
     /**
      * Header sidebar toggle element
@@ -88,7 +162,11 @@ use Digital_Newspaper\CustomizerDefault as DN;
             </div>
          <?php
      }
-    add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_header_sidebar_toggle_part', 100 );
+     if( DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'three' ) {
+        add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_header_sidebar_toggle_part', 100 );
+     } else {
+        add_action( 'digital_newspaper_header__menu_section_hook', 'digital_newspaper_header_sidebar_toggle_part', 30 );
+     }
  endif;
 
  if( ! function_exists( 'digital_newspaper_header_menu_part' ) ) :
@@ -118,7 +196,11 @@ use Digital_Newspaper\CustomizerDefault as DN;
         </nav><!-- #site-navigation -->
       <?php
     }
-    add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_header_menu_part', 50 );
+    if( DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'three' ) {
+        add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_header_menu_part', 50 );
+    } else {
+        add_action( 'digital_newspaper_header__menu_section_hook', 'digital_newspaper_header_menu_part', 40 );
+    }
  endif;
 
  if( ! function_exists( 'digital_newspaper_header_search_part' ) ) :
@@ -141,7 +223,11 @@ use Digital_Newspaper\CustomizerDefault as DN;
             </div>
         <?php
     }
-    add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_header_search_part', 60 );
+    if( DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'three' ) {
+        add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_header_search_part', 60 );
+    } else {
+        add_action( 'digital_newspaper_header__menu_section_hook', 'digital_newspaper_header_search_part', 50 );
+    }
 endif;
 
 if( ! function_exists( 'digital_newspaper_header_theme_mode_icon_part' ) ) :
@@ -159,15 +245,21 @@ if( ! function_exists( 'digital_newspaper_header_theme_mode_icon_part' ) ) :
             </div>
         <?php
      }
-    add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_header_theme_mode_icon_part', 110 );
+     if( DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'three' ) {
+        add_action( 'digital_newspaper_header__site_branding_section_hook', 'digital_newspaper_header_theme_mode_icon_part', 110 );
+     } else {
+        add_action( 'digital_newspaper_header__menu_section_hook', 'digital_newspaper_header_theme_mode_icon_part', 60 );
+     }
  endif;
 
-add_action( 'digital_newspaper_header__site_branding_section_hook', function() {
-    echo '<div class="header-smh-button-wrap menu-section">';
-}, 45 ); // search wrapper open
-add_action( 'digital_newspaper_header__site_branding_section_hook', function() {
-    echo '</div><!-- .header-smh-button-wrap -->';
-}, 120 ); // search wrapper end
+ if( DN\digital_newspaper_get_customizer_option( 'header_layout' ) === 'three' ) {
+    add_action( 'digital_newspaper_header__site_branding_section_hook', function() {
+        echo '<div class="header-smh-button-wrap menu-section">';
+    }, 45 ); // search wrapper open
+    add_action( 'digital_newspaper_header__site_branding_section_hook', function() {
+        echo '</div><!-- .header-smh-button-wrap -->';
+    }, 120 ); // search wrapper end
+ }
 
  if( ! function_exists( 'digital_newspaper_ticker_news_part' ) ) :
     /**

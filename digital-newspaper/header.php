@@ -24,56 +24,42 @@ use Digital_Newspaper\CustomizerDefault as DN;
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'digital-newspaper' ); ?></a>
 	<?php
-		if( did_action( 'elementor/loaded' ) && class_exists( 'Nekit_Render_Templates_Html' ) ) :
-			$Nekit_render_templates_html = new Nekit_Render_Templates_Html();
-			if( $Nekit_render_templates_html->is_template_available('header') ) {
-				$header_rendered = true;
-				echo $Nekit_render_templates_html->current_builder_template();
-			} else {
-				$header_rendered = false;
-			}
-		else :
-			$header_rendered = false;
-		endif;
-
-		if( ! $header_rendered ) :
 	?>
-			<div class="digital_newspaper_ovelay_div"></div>
-			<?php
-				/**
-				 * hook - digital_newspaper_page_prepend_hook
-				 * 
-				 * @package Digital Newspaper
-				 * @since 1.0.0
-				 */
-				do_action( "digital_newspaper_page_prepend_hook" );
-			?>
-	
-			<header id="masthead" class="site-header layout--default layout--three">
-				<?php
-					/**
-					 * Function - digital_newspaper_top_header_html
-					 * 
-					 * @since 1.0.0
-					 * 
-					 */
-					digital_newspaper_top_header_html();
-
-					/**
-					 * Function - digital_newspaper_header_html
-					 * 
-					 * @since 1.0.0
-					 * 
-					 */
-					digital_newspaper_header_html();
-				?>
-			</header><!-- #masthead -->
-	
-			<?php
+		<div class="digital_newspaper_ovelay_div"></div>
+		<?php
 			/**
-			 * function - digital_newspaper_after_header_html
+			 * hook - digital_newspaper_page_prepend_hook
 			 * 
+			 * @package Digital Newspaper
 			 * @since 1.0.0
 			 */
-			digital_newspaper_after_header_html();
-		endif;
+			do_action( "digital_newspaper_page_prepend_hook" );
+		?>
+
+		<header id="masthead" class="site-header layout--default <?php echo esc_attr( 'layout--' . DN\digital_newspaper_get_customizer_option('header_layout') ); ?>">
+			<?php
+				/**
+				 * Function - digital_newspaper_top_header_html
+				 * 
+				 * @since 1.0.0
+				 * 
+				 */
+				digital_newspaper_top_header_html();
+
+				/**
+				 * Function - digital_newspaper_header_html
+				 * 
+				 * @since 1.0.0
+				 * 
+				 */
+				digital_newspaper_header_html();
+			?>
+		</header><!-- #masthead -->
+
+		<?php
+		/**
+		 * function - digital_newspaper_after_header_html
+		 * 
+		 * @since 1.0.0
+		 */
+		digital_newspaper_after_header_html();

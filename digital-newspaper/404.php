@@ -7,20 +7,6 @@
  * @package Digital Newspaper
  */
 get_header();
-
-if( did_action( 'elementor/loaded' ) && class_exists( 'Nekit_Render_Templates_Html' ) ) :
-	$Nekit_render_templates_html = new Nekit_Render_Templates_Html();
-	if( $Nekit_render_templates_html->is_template_available('404') ) {
-		$single_rendered = true;
-		echo $Nekit_render_templates_html->current_builder_template();
-	} else {
-		$single_rendered = false;
-	}
-else :
-	$single_rendered = false;
-endif;
-
-if( ! $single_rendered ) :
 	?>
 	<div id="theme-content">
 		<?php
@@ -39,14 +25,14 @@ if( ! $single_rendered ) :
 						?>
 					</div>
 					<div class="primary-content">
+						<?php
+							/**
+							 * hook - digital_newspaper_before_inner_content
+							 * 
+							 */
+							do_action( 'digital_newspaper_before_inner_content' );
+						?>
 						<section class="error-404 not-found">
-							<?php
-								/**
-								 * hook - digital_newspaper_before_inner_content
-								 * 
-								 */
-								do_action( 'digital_newspaper_before_inner_content' );
-							?>
 							<div class="post-inner-wrapper">
 								<header class="page-header">
 									<h1 class="page-title digital-newspaper-block-title"><?php echo esc_html__( '404 Not Found', 'digital-newspaper' ); ?></h1>
@@ -72,5 +58,4 @@ if( ! $single_rendered ) :
 		</main><!-- #main -->
 	</div><!-- #theme-content -->
 	<?php
-endif;
 get_footer();

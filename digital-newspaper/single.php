@@ -8,20 +8,6 @@
  */
 
 get_header();
-
-if( did_action( 'elementor/loaded' ) && class_exists( 'Nekit_Render_Templates_Html' ) ) :
-	$Nekit_render_templates_html = new Nekit_Render_Templates_Html();
-	if( $Nekit_render_templates_html->is_template_available('single') ) {
-		$single_rendered = true;
-		echo $Nekit_render_templates_html->current_builder_template();
-	} else {
-		$single_rendered = false;
-	}
-else :
-	$single_rendered = false;
-endif;
-
-if( ! $single_rendered ) :
 	?>
 	<div id="theme-content">
 		<?php
@@ -64,5 +50,4 @@ if( ! $single_rendered ) :
 		</main><!-- #main -->
 	</div><!-- #theme-content -->
 	<?php
-endif;
 get_footer();

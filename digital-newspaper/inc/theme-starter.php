@@ -101,6 +101,7 @@
             'site_date_to_show' => 'published',
             'site_title_hover_textcolor'=> '#FD4F18',
             'site_description_color'    => '#8f8f8f',
+            'header_layout' => 'three',
             'homepage_content_order'    => array( 
                 array( 'value'  => 'full_width_section', 'option'   => false ),
                 array( 'value'  => 'leftc_rights_section', 'option'    => false ),
@@ -595,7 +596,10 @@
             'breadcrumb_custom_css' => '',
             'scroll_to_top_custom_css' => '',
             'site_identity_custom_css' => '',
-            'header_menu_custom_css' => ''
+            'header_menu_custom_css' => '',
+            'background_animation_option'   =>  'none',
+            'background_animation_object_color' =>  '#FD4F18',
+            'cursor_animation'  =>  'none'
             // #header-menu
         ));
         $totalCats = get_categories();

@@ -2807,17 +2807,6 @@
     const [title, setTitle] = useState(props.props.title);
     const [uniqueId, setUniqueId] = useState(props.props.uniqueId || Date.now().toString() + generateRandomLetter());
     const [blockId, setBlockId] = useState(props.props.blockId);
-    const [imageSize, setImageSize] = useState(props.props.imageSize || 'medium');
-    const [imageRatio, setImageRatio] = useState(props.props.imageRatio || {
-      'desktop': 0.6,
-      'tablet': 0.8,
-      'smartphone': 0.6
-    });
-    const [imageRadius, setImageRadius] = useState(props.props.imageRadius || {
-      'desktop': 0,
-      'tablet': 0,
-      'smartphone': 0
-    });
     const [thumbOption, setThumbOption] = useState(props.props.thumbOption);
     const [dateOption, setDateOption] = useState(props.props.dateOption);
     const [authorOption, setAuthorOption] = useState(props.props.authorOption);
@@ -2836,32 +2825,6 @@
     const [arrows, setArrows] = useState(props.props.arrows);
     const [auto, setAuto] = useState(props.props.auto);
     const [layout, setLayout] = useState(props.props.layout);
-    const imageSizes = customizerControlsObject.imageSizes;
-    const updateImageRatio = newImageRatio => {
-      let tempImageRatio = imageRatio;
-      tempImageRatio[responsiveIcon] = newImageRatio;
-      setImageRatio(JSON.parse(JSON.stringify(tempImageRatio)));
-    };
-    const updateImageRadius = newImageRadius => {
-      let tempImageRadius = imageRadius;
-      tempImageRadius[responsiveIcon] = newImageRadius;
-      setImageRadius(JSON.parse(JSON.stringify(tempImageRadius)));
-    };
-    const updateResponsiveIcon = newIcon => {
-      const footer = document.getElementById("customize-footer-actions");
-      if (newIcon == 'tablet') {
-        setResponsiveIcon('tablet');
-        footer.getElementsByClassName("preview-tablet")[0].click();
-      }
-      if (newIcon == 'smartphone') {
-        setResponsiveIcon('smartphone');
-        footer.getElementsByClassName("preview-mobile")[0].click();
-      }
-      if (newIcon == 'desktop') {
-        setResponsiveIcon('desktop');
-        footer.getElementsByClassName("preview-desktop")[0].click();
-      }
-    };
     const triggerDevice = device => {
       if (device == 'mobile') {
         setResponsiveIcon('smartphone');
@@ -2887,9 +2850,6 @@
         'type': props.props.type,
         'option': option,
         'title': title,
-        'imageSize': imageSize,
-        'imageRatio': imageRatio,
-        'imageRadius': imageRadius,
         'blockId': blockId,
         'uniqueId': uniqueId,
         'dateOption': dateOption,
@@ -2916,7 +2876,7 @@
         postBlockData.auto = auto;
       }
       props.updateValue(props.itemKey, postBlockData);
-    }, [option, title, blockId, imageSize, imageRatio, imageRadius, dateOption, authorOption, categoryOption, commentOption, excerptOption, excerptLength, buttonOption, viewallOption, viewallUrl, thumbOption, column, columns, layout, query, dots, loop, arrows, auto]);
+    }, [option, title, blockId, dateOption, authorOption, categoryOption, commentOption, excerptOption, excerptLength, buttonOption, viewallOption, viewallUrl, thumbOption, column, columns, layout, query, dots, loop, arrows, auto]);
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: `block-item block--${props.props.option ? "visibility" : "hidden"}`,
       elevation: 4,
@@ -2978,66 +2938,7 @@
         label: __(escapeHTML('Show view all icon'), 'digital-newspaper'),
         checked: viewallOption,
         onChange: newToggle => setViewallOption(newToggle)
-      }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h2", {
-        class: "block-heading"
-      }, __(escapeHTML('Image Settings'), 'digital-newspaper')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(SelectControl, {
-        label: __(escapeHTML('Image Size'), 'digital-newspaper'),
-        value: imageSize,
-        options: imageSizes,
-        onChange: newImageSize => setImageSize(newImageSize)
-      }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-        class: "responsive-control"
-      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-        className: "responsive-icons"
-      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Dashicon, {
-        className: `responsive-trigger ${responsiveIcon == 'desktop' && "isActive"}`,
-        "data-tip": __(escapeHTML('Desktop'), 'digital-newspaper'),
-        icon: "desktop",
-        onClick: () => updateResponsiveIcon("desktop")
-      }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Dashicon, {
-        className: `responsive-trigger ${responsiveIcon == 'tablet' && "isActive"}`,
-        "data-tip": __(escapeHTML('Tablet'), 'digital-newspaper'),
-        icon: "tablet",
-        onClick: () => updateResponsiveIcon("tablet")
-      }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Dashicon, {
-        className: `responsive-trigger ${responsiveIcon == 'smartphone' && "isActive"}`,
-        "data-tip": __(escapeHTML('Mobile'), 'digital-newspaper'),
-        icon: "smartphone",
-        onClick: () => updateResponsiveIcon("smartphone")
-      })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(RangeControl, {
-        label: __(escapeHTML('Image Ratio'), 'digital-newspaper'),
-        value: imageRatio[responsiveIcon],
-        onChange: newImageRatio => updateImageRatio(newImageRatio),
-        min: 0,
-        max: 2,
-        step: 0.1
-      })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-        class: "responsive-control"
-      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-        className: "responsive-icons"
-      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Dashicon, {
-        className: `responsive-trigger ${responsiveIcon == 'desktop' && "isActive"}`,
-        "data-tip": __(escapeHTML('Desktop'), 'digital-newspaper'),
-        icon: "desktop",
-        onClick: () => updateResponsiveIcon("desktop")
-      }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Dashicon, {
-        className: `responsive-trigger ${responsiveIcon == 'tablet' && "isActive"}`,
-        "data-tip": __(escapeHTML('Tablet'), 'digital-newspaper'),
-        icon: "tablet",
-        onClick: () => updateResponsiveIcon("tablet")
-      }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Dashicon, {
-        className: `responsive-trigger ${responsiveIcon == 'smartphone' && "isActive"}`,
-        "data-tip": __(escapeHTML('Mobile'), 'digital-newspaper'),
-        icon: "smartphone",
-        onClick: () => updateResponsiveIcon("smartphone")
-      })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(RangeControl, {
-        label: __(escapeHTML('Image Border Radius'), 'digital-newspaper'),
-        value: imageRadius[responsiveIcon],
-        onChange: newImageRadius => updateImageRadius(newImageRadius),
-        min: 0,
-        max: 100,
-        step: 1
-      })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
+      }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(TextControl, {
         label: __(escapeHTML('Block ID Attribute'), 'digital-newspaper'),
         value: blockId,
         onChange: newValue => setBlockId(newValue)
@@ -3387,13 +3288,6 @@
     setting,
     updateItemVisibility
   }) => {
-    if (props.type == 'news-list') {
-      if (!props.imageRatio) props.imageRatio = {
-        'desktop': 0.25,
-        'tablet': 0.25,
-        'smartphone': 0.25
-      };
-    }
     switch (props.type) {
       case "ad-block":
         return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PostAdBlock, {
@@ -15434,7 +15328,7 @@
   /***/ ((module) => {
   
   "use strict";
-  module.exports = JSON.parse('{"Roboto":{"category":"sans-serif","variants":{"normal":{"100":{"trendy":["\'Roboto Thin\'","\'Roboto-Thin\'"]},"300":{"trendy":["\'Roboto Light\'","\'Roboto-Light\'"]},"400":{"trendy":["\'Roboto\'","\'Roboto-Regular\'"]},"500":{"trendy":["\'Roboto Medium\'","\'Roboto-Medium\'"]},"700":{"trendy":["\'Roboto Bold\'","\'Roboto-Bold\'"]},"900":{"trendy":["\'Roboto Black\'","\'Roboto-Black\'"]}}}},"Inter":{"category":"sans-serif","variants":{"normal":{"100":{"trendy":[]},"200":{"trendy":[]},"300":{"trendy":[]},"400":{"trendy":[]},"500":{"trendy":[]},"600":{"trendy":[]},"700":{"trendy":[]},"800":{"trendy":[]},"900":{"trendy":[]}}}},"Jost":{"category":"sans-serif","variants":{"normal":{"100":{"trendy":[]},"200":{"trendy":[]},"300":{"trendy":[]},"400":{"trendy":[]},"500":{"trendy":[]},"600":{"trendy":[]},"700":{"trendy":[]},"800":{"trendy":[]},"900":{"trendy":[]}}}},"Playfair Display":{"category":"serif","variants":{"normal":{"400":{"local":[]},"500":{"local":[]},"600":{"local":[]},"700":{"local":[]},"800":{"local":[]},"900":{"local":[]}}}},"Cabin":{"category":"sans-serif","variants":{"normal":{"400":{"trendy":[]},"500":{"trendy":[]},"600":{"trendy":[]},"700":{"trendy":[]}}}}}');
+  module.exports = JSON.parse('{"Roboto":{"category":"sans-serif","variants":{"normal":{"100":{"trendy":["\'Roboto Thin\'","\'Roboto-Thin\'"]},"300":{"trendy":["\'Roboto Light\'","\'Roboto-Light\'"]},"400":{"trendy":["\'Roboto\'","\'Roboto-Regular\'"]},"500":{"trendy":["\'Roboto Medium\'","\'Roboto-Medium\'"]},"700":{"trendy":["\'Roboto Bold\'","\'Roboto-Bold\'"]},"900":{"trendy":["\'Roboto Black\'","\'Roboto-Black\'"]}}}},"Inter":{"category":"sans-serif","variants":{"normal":{"100":{"trendy":[]},"200":{"trendy":[]},"300":{"trendy":[]},"400":{"trendy":[]},"500":{"trendy":[]},"600":{"trendy":[]},"700":{"trendy":[]},"800":{"trendy":[]},"900":{"trendy":[]}}}},"Jost":{"category":"sans-serif","variants":{"normal":{"100":{"trendy":[]},"200":{"trendy":[]},"300":{"trendy":[]},"400":{"trendy":[]},"500":{"trendy":[]},"600":{"trendy":[]},"700":{"trendy":[]},"800":{"trendy":[]},"900":{"trendy":[]}}}},"Playfair Display":{"category":"serif","variants":{"normal":{"400":{"local":[]},"500":{"local":[]},"600":{"local":[]},"700":{"local":[]},"800":{"local":[]},"900":{"local":[]}}}},"Cabin":{"category":"sans-serif","variants":{"normal":{"400":{"trendy":[]},"500":{"trendy":[]},"600":{"trendy":[]},"700":{"trendy":[]}}}},"Nunito":{"category":"sans-serif","variants":{"normal":{"200":{"local":["\'Nunito ExtraLight\'","\'Nunito-ExtraLight\'"]},"300":{"local":["\'Nunito Light\'","\'Nunito-Light\'"]},"400":{"local":["\'Nunito Regular\'","\'Nunito-Regular\'"]},"600":{"local":["\'Nunito SemiBold\'","\'Nunito-SemiBold\'"]},"700":{"local":["\'Nunito Bold\'","\'Nunito-Bold\'"]},"800":{"local":["\'Nunito ExtraBold\'","\'Nunito-ExtraBold\'"]},"900":{"local":["\'Nunito Black\'","\'Nunito-Black\'"]}}}},"Rubik":{"category":"sans-serif","variants":{"normal":{"300":{"local":[]},"400":{"local":[]},"500":{"local":[]},"600":{"local":[]},"700":{"local":[]},"800":{"local":[]},"900":{"local":[]}}}}}');
   
   /***/ })
   
