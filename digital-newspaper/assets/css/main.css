@@ -1139,6 +1139,12 @@
 		padding-left: 8px;
 	}
 
+	/* 2.2 Header Two */
+	.site-header.layout--default.layout--two .top-header .top-nav-menu,
+	.site-header.layout--default.layout--three .top-nav-menu {
+		text-align: right;
+	}
+
 	/* Top Ticker News */
 	.top-ticker-news .ticker-item-wrap {
 		visibility: hidden;
@@ -1626,6 +1632,10 @@
 			display: none;
 		}
 
+		body .site-header.layout--default.layout--two .top-header .top-nav-menu {
+			text-align: left;
+		}
+
 		.site-header.layout--default .top-ticker-news {
 			flex: 1;
 			padding: 0 15px;
@@ -1877,9 +1887,9 @@
 		flex: 0 1 25%;
 	}
 
-	.site-header.layout--three .site-branding .site-title a {
+	/* .site-header.layout--three .site-branding .site-title a {
 		font-size: calc(var(--site-title-size)*0.65);
-	}
+	} */
 
 	.site-header .header-smh-button-wrap {
 		flex: 0 1 75%;

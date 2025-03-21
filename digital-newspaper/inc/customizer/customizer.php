@@ -514,7 +514,8 @@ function digital_newspaper_customize_register( $wp_customize ) {
     // site background color
     $wp_customize->add_setting( 'site_background_color', array(
         'default'   => DN\digital_newspaper_get_customizer_default( 'site_background_color' ),
-        'sanitize_callback' => 'sanitize_text_field'
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' =>  'postMessage'
     ));
     $wp_customize->add_control( 
         new Digital_Newspaper_WP_Color_Group_Control( $wp_customize, 'site_background_color', array(

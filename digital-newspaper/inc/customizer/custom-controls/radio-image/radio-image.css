@@ -14,7 +14,7 @@
 	max-width:100%;
 	height:auto;
 	padding:1px;
-	border:3px solid transparent;
+	border: 3px solid transparent;
 }
 
 .customize-control-radio-image img:hover, .customize-control-radio-image img:focus {
@@ -37,7 +37,7 @@
     flex-wrap: wrap;
 }
 
-.customize-control-radio-image .buttonset label.ui-button{
+.customize-control-radio-image .buttonset label.ui-button {
     flex: 0 1 48%;
     margin-right: 5px;
 }

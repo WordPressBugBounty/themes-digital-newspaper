@@ -118,9 +118,9 @@
                 'font_family'   => array( 'value' => 'Jost', 'label' => 'Jost' ),
                 'font_weight'   => array( 'value' => '700', 'label' => 'Bold 700' ),
                 'font_size'   => array(
-                    'desktop' => 45,
-                    'tablet' => 43,
-                    'smartphone' => 40
+                    'desktop' => 29,
+                    'tablet' => 29,
+                    'smartphone' => 29
                 ),
                 'line_height'   => array(
                     'desktop' => 45,

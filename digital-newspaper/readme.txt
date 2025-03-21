@@ -4,7 +4,7 @@ Tags: news, blog, entertainment, one-column, two-columns, grid-layout, block-sty
 Requires at least: 5.3
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 1.1.14
+Stable tag: 1.1.15
 License: GNU General Public License v2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -71,7 +71,10 @@ URL: http://github.com/kenwheeler/slick
 License: The MIT License
 
 == Changelog ==
-= 1.1.14 - March 17th, 2024 =
+= 1.1.15 - March 21th, 2025 =
+    * Tweaks - css tweaks
+
+= 1.1.14 - March 17th, 2025 =
     * Added - compatibility for child theme added
     * Removed - nekit theme builder code removed
 

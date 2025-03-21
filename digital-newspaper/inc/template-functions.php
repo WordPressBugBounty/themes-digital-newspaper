@@ -80,6 +80,9 @@ function digital_newspaper_body_classes( $classes ) {
 	$background_animation_option = DN\digital_newspaper_get_customizer_option( 'background_animation_option' );
 	$classes[] = 'background-animation--' . $background_animation_option;
 	if( $background_animation_option !== 'none' ) $classes[] = 'background-animation--enabled';
+
+	$website_content_layout = DN\digital_newspaper_get_customizer_option( 'website_content_layout' );
+    $classes[] = 'global-content-layout--' . $website_content_layout;
 	return $classes;
 }
 add_filter( 'body_class', 'digital_newspaper_body_classes' );

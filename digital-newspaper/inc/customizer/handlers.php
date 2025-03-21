@@ -6,7 +6,7 @@ use Digital_Newspaper\CustomizerDefault as DN;
 add_action( 'customize_preview_init', function() {
     wp_enqueue_script( 
         'digital-newspaper-customizer-preview',
-        get_template_directory_uri() . '/inc/customizer/assets/customizer-preview.min.js',
+        get_template_directory_uri() . '/inc/customizer/assets/customizer-preview.js',
         ['customize-preview'],
         DIGITAL_NEWSPAPER_VERSION,
         true
@@ -16,7 +16,8 @@ add_action( 'customize_preview_init', function() {
         'digital-newspaper-customizer-preview',
         'digitalNewspaperPreviewObject', array(
             '_wpnonce'	=> wp_create_nonce( 'digital-newspaper-customizer-nonce' ),
-            'ajaxUrl' => esc_url(admin_url('admin-ajax.php'))
+            'ajaxUrl' => esc_url(admin_url('admin-ajax.php')),
+            'totalCats' => get_categories() ? get_categories() : []
         )
     );
 });
@@ -34,7 +35,7 @@ add_action( 'customize_controls_enqueue_scripts', function() {
     ));
 	wp_enqueue_style( 
         'digital-newspaper-customizer-control',
-        get_template_directory_uri() . '/inc/customizer/assets/customizer-controls.min.css', 
+        get_template_directory_uri() . '/inc/customizer/assets/customizer-controls.min.css',
         array('wp-components'),
         DIGITAL_NEWSPAPER_VERSION,
         'all'
@@ -595,7 +596,8 @@ if( !function_exists( 'digital_newspaper_customizer_global_panel' ) ) :
                 // category colors control
                 $wp_customize->add_setting( 'category_' .absint($singleCat->term_id). '_color', array(
                     'default'   => DN\digital_newspaper_get_customizer_default( 'category_' .absint($singleCat->term_id). '_color' ),
-                    'sanitize_callback' => 'digital_newspaper_sanitize_color_group_picker_control'
+                    'sanitize_callback' => 'digital_newspaper_sanitize_color_group_picker_control',
+                    'transport' => 'postMessage'
                 ));
                 $wp_customize->add_control( 
                     new Digital_Newspaper_WP_Color_Group_Picker_Control( $wp_customize, 'category_' .absint($singleCat->term_id). '_color', array(
@@ -728,8 +730,9 @@ if( !function_exists( 'digital_newspaper_customizer_global_panel' ) ) :
         // website content layout
         $wp_customize->add_setting( 'website_content_layout',
             array(
-            'default'           => DN\digital_newspaper_get_customizer_default( 'website_content_layout' ),
-            'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+                'default'           => DN\digital_newspaper_get_customizer_default( 'website_content_layout' ),
+                'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+                'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -1772,7 +1775,8 @@ if( !function_exists( 'digital_newspaper_customizer_header_panel' ) ) :
         // Resposive vivibility option
         $wp_customize->add_setting( 'header_ads_banner_responsive_option', array(
             'default' => DN\digital_newspaper_get_customizer_default( 'header_ads_banner_responsive_option' ),
-            'sanitize_callback' => 'digital_newspaper_sanitize_responsive_multiselect_control'
+            'sanitize_callback' => 'digital_newspaper_sanitize_responsive_multiselect_control',
+            'transport' =>  'postMessage'
         ));
         $wp_customize->add_control( 
             new Digital_Newspaper_WP_Responsive_Multiselect_Tab_Control( $wp_customize, 'header_ads_banner_responsive_option', array(
@@ -1855,7 +1859,8 @@ if( !function_exists( 'digital_newspaper_customizer_header_panel' ) ) :
         // header width layout
         $wp_customize->add_setting( 'header_width_layout', array(
             'default' => DN\digital_newspaper_get_customizer_default( 'header_width_layout' ),
-            'sanitize_callback' => 'digital_newspaper_sanitize_select_control'
+            'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
         ));
         $wp_customize->add_control( 'header_width_layout', array(
             'type'      => 'select',
@@ -2317,8 +2322,9 @@ if( !function_exists( 'digital_newspaper_customizer_ticker_news_panel' ) ) :
         // website content layout
         $wp_customize->add_setting( 'ticker_news_width_layout',
             array(
-            'default'           => DN\digital_newspaper_get_customizer_default( 'ticker_news_width_layout' ),
-            'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+                'default'           => DN\digital_newspaper_get_customizer_default( 'ticker_news_width_layout' ),
+                'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+                'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -3090,6 +3096,7 @@ if( !function_exists( 'digital_newspaper_customizer_main_banner_panel' ) ) :
             array(
             'default'           => DN\digital_newspaper_get_customizer_default( 'main_banner_width_layout' ),
             'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -3211,7 +3218,8 @@ if( !function_exists( 'digital_newspaper_customizer_footer_panel' ) ) :
         // archive pagination type
         $wp_customize->add_setting( 'footer_section_width', array(
             'default' => DN\digital_newspaper_get_customizer_default( 'footer_section_width' ),
-            'sanitize_callback' => 'sanitize_text_field'
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport' =>  'postMessage'
         ));
         $wp_customize->add_control( 
             new Digital_Newspaper_WP_Radio_Tab_Control( $wp_customize, 'footer_section_width', array(
@@ -3378,8 +3386,9 @@ if( !function_exists( 'digital_newspaper_customizer_bottom_footer_panel' ) ) :
         // bottom footer width layout
         $wp_customize->add_setting( 'bottom_footer_width_layout',
             array(
-            'default'           => DN\digital_newspaper_get_customizer_default( 'bottom_footer_width_layout' ),
-            'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+                'default'           => DN\digital_newspaper_get_customizer_default( 'bottom_footer_width_layout' ),
+                'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+                'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -3555,6 +3564,7 @@ if( !function_exists( 'digital_newspaper_customizer_front_sections_panel' ) ) :
             array(
             'default'           => DN\digital_newspaper_get_customizer_default( 'full_width_blocks_width_layout' ),
             'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -3631,7 +3641,8 @@ if( !function_exists( 'digital_newspaper_customizer_front_sections_panel' ) ) :
         // Block Repeater control
         $wp_customize->add_setting( 'leftc_rights_blocks', array(
             'sanitize_callback' => 'digital_newspaper_sanitize_repeater_control',
-            'default'   => DN\digital_newspaper_get_customizer_default( 'leftc_rights_blocks' )
+            'default'   => DN\digital_newspaper_get_customizer_default( 'leftc_rights_blocks' ),
+            'transport' =>  'postMessage'
         ));
         
         $wp_customize->add_control( 
@@ -3661,6 +3672,7 @@ if( !function_exists( 'digital_newspaper_customizer_front_sections_panel' ) ) :
             array(
             'default'           => DN\digital_newspaper_get_customizer_default( 'leftc_rights_blocks_width_layout' ),
             'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -3736,7 +3748,8 @@ if( !function_exists( 'digital_newspaper_customizer_front_sections_panel' ) ) :
         // Block Repeater control
         $wp_customize->add_setting( 'lefts_rightc_blocks', array(
             'sanitize_callback' => 'digital_newspaper_sanitize_repeater_control',
-            'default'   => DN\digital_newspaper_get_customizer_default( 'lefts_rightc_blocks' )
+            'default'   => DN\digital_newspaper_get_customizer_default( 'lefts_rightc_blocks' ),
+            'transport' =>  'postMessage'
         ));
         
         $wp_customize->add_control( 
@@ -3766,6 +3779,7 @@ if( !function_exists( 'digital_newspaper_customizer_front_sections_panel' ) ) :
             array(
             'default'           => DN\digital_newspaper_get_customizer_default( 'lefts_rightc_blocks_width_layout' ),
             'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -3821,7 +3835,8 @@ if( !function_exists( 'digital_newspaper_customizer_front_sections_panel' ) ) :
         // bottom full width blocks control
         $wp_customize->add_setting( 'bottom_full_width_blocks', array(
             'sanitize_callback' => 'digital_newspaper_sanitize_repeater_control',
-            'default'   => DN\digital_newspaper_get_customizer_default( 'bottom_full_width_blocks' )
+            'default'   => DN\digital_newspaper_get_customizer_default( 'bottom_full_width_blocks' ),
+            'transport' =>  'postMessage'
         ));
         
         $wp_customize->add_control( 
@@ -3851,6 +3866,7 @@ if( !function_exists( 'digital_newspaper_customizer_front_sections_panel' ) ) :
             array(
             'default'           => DN\digital_newspaper_get_customizer_default( 'bottom_full_width_blocks_width_layout' ),
             'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -3964,8 +3980,8 @@ if( !function_exists( 'digital_newspaper_customizer_blog_post_archive_panel' ) )
         // archive post layouts
         $wp_customize->add_setting( 'archive_page_layout',
             array(
-            'default'           => DN\digital_newspaper_get_customizer_default( 'archive_page_layout' ),
-            'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+                'default'           => DN\digital_newspaper_get_customizer_default( 'archive_page_layout' ),
+                'sanitize_callback' => 'digital_newspaper_sanitize_select_control'
             )
         );
         $wp_customize->add_control( 
@@ -4029,7 +4045,8 @@ if( !function_exists( 'digital_newspaper_customizer_blog_post_archive_panel' ) )
 
         // Width Layouts setting heading
         $wp_customize->add_setting( 'archive_width_layout_header', array(
-            'sanitize_callback' => 'sanitize_text_field'
+            'sanitize_callback' => 'sanitize_text_field',
+            'transport' =>  'postMessage'
         ));
         $wp_customize->add_control( 
             new Digital_Newspaper_WP_Section_Heading_Control( $wp_customize, 'archive_width_layout_header', array(
@@ -4045,6 +4062,7 @@ if( !function_exists( 'digital_newspaper_customizer_blog_post_archive_panel' ) )
             array(
             'default'           => DN\digital_newspaper_get_customizer_default( 'archive_width_layout' ),
             'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -4152,6 +4170,7 @@ if( !function_exists( 'digital_newspaper_customizer_blog_post_archive_panel' ) )
             array(
             'default'           => DN\digital_newspaper_get_customizer_default( 'single_post_width_layout' ),
             'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -4263,6 +4282,7 @@ if( !function_exists( 'digital_newspaper_customizer_page_panel' ) ) :
             array(
             'default'           => DN\digital_newspaper_get_customizer_default( 'single_page_width_layout' ),
             'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -4310,6 +4330,7 @@ if( !function_exists( 'digital_newspaper_customizer_page_panel' ) ) :
             array(
             'default'           => DN\digital_newspaper_get_customizer_default( 'error_page_width_layout' ),
             'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
@@ -4357,6 +4378,7 @@ if( !function_exists( 'digital_newspaper_customizer_page_panel' ) ) :
             array(
             'default'           => DN\digital_newspaper_get_customizer_default( 'search_page_width_layout' ),
             'sanitize_callback' => 'digital_newspaper_sanitize_select_control',
+            'transport' =>  'postMessage'
             )
         );
         $wp_customize->add_control( 
