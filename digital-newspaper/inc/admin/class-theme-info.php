@@ -40,11 +40,13 @@ if( !class_exists( 'Digital_Newspaper_Theme_Info' ) ) :
          * 
          */
         function __construct() {
-            $this->theme_name = esc_html__( 'Digital Newspaper', 'digital-newspaper' );
+            add_action( 'init', function(){
+                $this->theme_name = esc_html__( 'Digital Newspaper', 'digital-newspaper' );
+                $this->restriction_message = esc_html__( "You dont have permission to perform this action", "digital-newspaper" );
+                $this->demofile = include get_template_directory() . '/inc/admin/assets/demos.php';
+            });
             $this->version = wp_get_theme()->get( 'Version' );
-            $this->demofile = include get_template_directory() . '/inc/admin/assets/demos.php';
             $this->digital_newspaper_disable_admin_notices = get_theme_mod( 'digital_newspaper_disable_admin_notices', false );
-            $this->restriction_message = esc_html__( "You dont have permission to perform this action", "digital-newspaper" );
             //Add the theme page
             add_action( 'admin_menu', array( $this, 'add_theme_info_menu' ) );
             if( ! $this->digital_newspaper_disable_admin_notices ) :

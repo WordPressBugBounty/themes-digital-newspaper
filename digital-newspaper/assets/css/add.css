@@ -137,6 +137,7 @@ body.search-popup--style-one .search_close_btn,
     z-index: 2;
 }
 
+body.search-popup--style-three.logged-in .site-header.layout--two .search_close_btn,
 body.search-popup--style-three.logged-in .site-header.layout--three .search_close_btn {
     top: 52px;
 }
