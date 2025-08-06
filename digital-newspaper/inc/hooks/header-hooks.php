@@ -17,6 +17,7 @@ use Digital_Newspaper\CustomizerDefault as DN;
          ?>
             <div class="site-branding">
                 <?php
+                    do_action( 'header_ad_one_hook' );
                     the_custom_logo();
                     if ( is_front_page() && is_home() ) :
                 ?>
@@ -31,7 +32,9 @@ use Digital_Newspaper\CustomizerDefault as DN;
                     if ( $digital_newspaper_description || is_customize_preview() ) :
                 ?>
                     <p class="site-description"><?php echo get_bloginfo( 'description', 'display' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-                <?php endif; ?>
+                <?php endif;
+                    do_action( 'header_ad_two_hook' );
+                ?>
             </div><!-- .site-branding -->
          <?php
      }
