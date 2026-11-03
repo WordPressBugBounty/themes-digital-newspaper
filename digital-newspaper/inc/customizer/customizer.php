@@ -17,12 +17,12 @@ function digital_newspaper_customize_register( $wp_customize ) {
     $wp_customize->get_section( 'background_image' )->title = esc_html__( 'Background', 'digital-newspaper' );
     $wp_customize->remove_control( 'background_color' );
     
-	require get_template_directory() . '/inc/customizer/custom-controls/section-heading/section-heading.php'; // section heading control
-	require get_template_directory() . '/inc/customizer/custom-controls/repeater/repeater.php'; // repeater control
-    require get_template_directory() . '/inc/customizer/custom-controls/radio-image/radio-image.php'; // radio image control
-	require get_template_directory() . '/inc/customizer/custom-controls/redirect-control/redirect-control.php'; // redirect control
-    require get_template_directory() . '/inc/customizer/base.php'; // base class
-    require get_template_directory() . '/inc/customizer/custom-controls/upsell/upsell.php'; // upsell class
+	require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/custom-controls/section-heading/section-heading.php'; // section heading control
+	require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/custom-controls/repeater/repeater.php'; // repeater control
+    require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/custom-controls/radio-image/radio-image.php'; // radio image control
+	require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/custom-controls/redirect-control/redirect-control.php'; // redirect control
+    require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/base.php'; // base class
+    require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/custom-controls/upsell/upsell.php'; // upsell class
     // icon text control
     class Digital_Newspaper_WP_Icon_Text_Control extends Digital_Newspaper_WP_Base_Control {
         // control type
@@ -537,7 +537,7 @@ add_filter( DIGITAL_NEWSPAPER_PREFIX . 'unique_identifier', function($identifier
     return implode($n_delimeter,$identifier_id);
 });
 
-require get_template_directory() . '/inc/customizer/handlers.php'; // customizer handlers
-require get_template_directory() . '/inc/customizer/customizer-up.php'; // customizer up
-require get_template_directory() . '/inc/customizer/selective-refresh.php'; // selective refresh
-require get_template_directory() . '/inc/customizer/sanitize-functions.php'; // sanitize functions
+require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/handlers.php'; // customizer handlers
+require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/customizer-up.php'; // customizer up
+require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/selective-refresh.php'; // selective refresh
+require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/sanitize-functions.php'; // sanitize functions

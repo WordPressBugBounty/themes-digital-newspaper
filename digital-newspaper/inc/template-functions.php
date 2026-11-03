@@ -99,7 +99,7 @@ function digital_newspaper_pingback_header() {
 add_action( 'wp_head', 'digital_newspaper_pingback_header' );
 
 //define constant
-define( 'DIGITAL_NEWSPAPER_INCLUDES_PATH', get_template_directory() . '/inc/' );
+define( 'DIGITAL_NEWSPAPER_INCLUDES_PATH', DIGITAL_NEWSPAPER_PATH . '/inc/' );
 
 /**
  * Enqueue theme scripts and styles.
@@ -108,27 +108,27 @@ function digital_newspaper_scripts() {
 	global $wp_query;
 	require_once get_theme_file_path( 'inc/wptt-webfont-loader.php' );
 
-	wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/lib/fontawesome/css/all.min.css', array(), '5.15.3', 'all' );
-	wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/lib/slick/slick.css', array(), '1.8.1', 'all' );
+	wp_enqueue_style( 'fontawesome', DIGITAL_NEWSPAPER_URL . '/assets/lib/fontawesome/css/all.min.css', array(), '5.15.3', 'all' );
+	wp_enqueue_style( 'slick', DIGITAL_NEWSPAPER_URL . '/assets/lib/slick/slick.css', array(), '1.8.1', 'all' );
 	wp_enqueue_style( 'digital-newspaper-typo-fonts', wptt_get_webfont_url( digital_newspaper_typo_fonts_url() ), array(), null );
 	// enqueue inline style
 	wp_enqueue_style( 'digital-newspaper-style', get_stylesheet_uri(), array(), DIGITAL_NEWSPAPER_VERSION );
 	wp_add_inline_style( 'digital-newspaper-style', digital_newspaper_current_styles() );
-	wp_enqueue_style( 'digital-newspaper-main-style', get_template_directory_uri().'/assets/css/main.css', array(), DIGITAL_NEWSPAPER_VERSION );
+	wp_enqueue_style( 'digital-newspaper-main-style', DIGITAL_NEWSPAPER_URL.'/assets/css/main.css', array(), DIGITAL_NEWSPAPER_VERSION );
 
 
 	// additional css
-	wp_enqueue_style( 'digital-newspaper-main-style-additional', get_template_directory_uri().'/assets/css/add.css', array(), DIGITAL_NEWSPAPER_VERSION );
+	wp_enqueue_style( 'digital-newspaper-main-style-additional', DIGITAL_NEWSPAPER_URL.'/assets/css/add.css', array(), DIGITAL_NEWSPAPER_VERSION );
 
 
-	wp_enqueue_style( 'digital-newspaper-loader-style', get_template_directory_uri().'/assets/css/loader.css', array(), DIGITAL_NEWSPAPER_VERSION );
-	wp_enqueue_style( 'digital-newspaper-responsive-style', get_template_directory_uri().'/assets/css/responsive.css', array(), DIGITAL_NEWSPAPER_VERSION );
+	wp_enqueue_style( 'digital-newspaper-loader-style', DIGITAL_NEWSPAPER_URL.'/assets/css/loader.css', array(), DIGITAL_NEWSPAPER_VERSION );
+	wp_enqueue_style( 'digital-newspaper-responsive-style', DIGITAL_NEWSPAPER_URL.'/assets/css/responsive.css', array(), DIGITAL_NEWSPAPER_VERSION );
 	wp_style_add_data( 'digital-newspaper-style', 'rtl', 'replace' );
-	wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/lib/slick/slick.min.js', array( 'jquery' ), '1.8.1', true );
-	wp_enqueue_script( 'js-marquee', get_template_directory_uri() . '/assets/lib/js-marquee/jquery.marquee.min.js', array( 'jquery' ), '1.6.0', true );
-	wp_enqueue_script( 'digital-newspaper-navigation', get_template_directory_uri() . '/assets/js/navigation.js', array(), DIGITAL_NEWSPAPER_VERSION, true );
-	wp_enqueue_script( 'digital-newspaper-theme', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery' ), DIGITAL_NEWSPAPER_VERSION, true );
-	wp_enqueue_script( 'waypoint', get_template_directory_uri() . '/assets/lib/waypoint/jquery.waypoint.min.js', array( 'jquery' ), '4.0.1', true );
+	wp_enqueue_script( 'slick', DIGITAL_NEWSPAPER_URL . '/assets/lib/slick/slick.min.js', array( 'jquery' ), '1.8.1', true );
+	wp_enqueue_script( 'js-marquee', DIGITAL_NEWSPAPER_URL . '/assets/lib/js-marquee/jquery.marquee.min.js', array( 'jquery' ), '1.6.0', true );
+	wp_enqueue_script( 'digital-newspaper-navigation', DIGITAL_NEWSPAPER_URL . '/assets/js/navigation.js', array(), DIGITAL_NEWSPAPER_VERSION, true );
+	wp_enqueue_script( 'digital-newspaper-theme', DIGITAL_NEWSPAPER_URL . '/assets/js/theme.js', array( 'jquery' ), DIGITAL_NEWSPAPER_VERSION, true );
+	wp_enqueue_script( 'waypoint', DIGITAL_NEWSPAPER_URL . '/assets/lib/waypoint/jquery.waypoint.min.js', array( 'jquery' ), '4.0.1', true );
 
 	$scriptVars['_wpnonce'] = wp_create_nonce( 'digital-newspaper-nonce' );
 	$scriptVars['ajaxUrl'] 	= esc_url(admin_url('admin-ajax.php'));
@@ -509,12 +509,12 @@ if( ! function_exists( 'digital_newspaper_get_rcolor_code' ) ) :
 	}
 endif;
 
-require get_template_directory() . '/inc/theme-starter.php'; // theme starter functions.
-require get_template_directory() . '/inc/customizer/customizer.php'; // Customizer additions.
-require get_template_directory() . '/inc/extras/helpers.php'; // helpers files.
-require get_template_directory() . '/inc/extras/extras.php'; // extras files.
-require get_template_directory() . '/inc/widgets/widgets.php'; // widget handlers
-include get_template_directory() . '/inc/styles.php';
+require DIGITAL_NEWSPAPER_PATH . '/inc/theme-starter.php'; // theme starter functions.
+require DIGITAL_NEWSPAPER_PATH . '/inc/customizer/customizer.php'; // Customizer additions.
+require DIGITAL_NEWSPAPER_PATH . '/inc/extras/helpers.php'; // helpers files.
+require DIGITAL_NEWSPAPER_PATH . '/inc/extras/extras.php'; // extras files.
+require DIGITAL_NEWSPAPER_PATH . '/inc/widgets/widgets.php'; // widget handlers
+include DIGITAL_NEWSPAPER_PATH . '/inc/styles.php';
 
 /**
  * Filter posts ajax function

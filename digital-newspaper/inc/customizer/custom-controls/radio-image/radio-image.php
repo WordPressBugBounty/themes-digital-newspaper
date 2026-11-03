@@ -24,9 +24,9 @@ class Digital_Newspaper_WP_Radio_Image_Control extends WP_Customize_Control {
      * @return void
      */
     public function enqueue() {
-        wp_enqueue_style(  'digital-newspaper-radio-image', get_template_directory_uri() . '/inc/customizer/custom-controls/radio-image/radio-image.css', array(), DIGITAL_NEWSPAPER_VERSION, 'all' );
+        wp_enqueue_style(  'digital-newspaper-radio-image', DIGITAL_NEWSPAPER_URL . '/inc/customizer/custom-controls/radio-image/radio-image.css', array(), DIGITAL_NEWSPAPER_VERSION, 'all' );
         wp_enqueue_script( 'jquery-ui-button' );
-        wp_enqueue_script( 'digital-newspaper-radio-image', get_template_directory_uri() . '/inc/customizer/custom-controls/radio-image/radio-image.js', array( 'jquery' ), DIGITAL_NEWSPAPER_VERSION, true );
+        wp_enqueue_script( 'digital-newspaper-radio-image', DIGITAL_NEWSPAPER_URL . '/inc/customizer/custom-controls/radio-image/radio-image.js', array( 'jquery' ), DIGITAL_NEWSPAPER_VERSION, true );
     }
     /**
      * Add custom JSON parameters to use in the JS template.
@@ -40,7 +40,7 @@ class Digital_Newspaper_WP_Radio_Image_Control extends WP_Customize_Control {
 
         // We need to make sure we have the correct image URL.
         foreach ( $this->choices as $value => $args )
-            $this->choices[ $value ]['url'] = esc_url( sprintf( $args['url'], get_template_directory_uri(), get_stylesheet_directory_uri() ) );
+            $this->choices[ $value ]['url'] = esc_url( sprintf( $args['url'], DIGITAL_NEWSPAPER_URL, get_stylesheet_directory_uri() ) );
             $this->json['choices'] = $this->choices;
             $this->json['link']    = $this->get_link();
             $this->json['value']   = $this->value();

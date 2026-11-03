@@ -53,9 +53,9 @@ class Digital_Newspaper_WP_Custom_Repeater extends \WP_Customize_Control {
      */
     function enqueue() {
         wp_enqueue_media();
-        wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/lib/fontawesome/css/all.min.css', array(), '5.15.3', 'all' );
-        wp_enqueue_style( 'digital-newspaper-wp-repeater', get_template_directory_uri() . '/inc/customizer/custom-controls/repeater/repeater.css', array(), DIGITAL_NEWSPAPER_VERSION, 'all' );
-        wp_enqueue_script( 'digital-newspaper-wp-repeater', get_template_directory_uri() . '/inc/customizer/custom-controls/repeater/repeater.js', array( 'jquery' ), DIGITAL_NEWSPAPER_VERSION, true );
+        wp_enqueue_style( 'fontawesome', DIGITAL_NEWSPAPER_URL . '/assets/lib/fontawesome/css/all.min.css', array(), '5.15.3', 'all' );
+        wp_enqueue_style( 'digital-newspaper-wp-repeater', DIGITAL_NEWSPAPER_URL . '/inc/customizer/custom-controls/repeater/repeater.css', array(), DIGITAL_NEWSPAPER_VERSION, 'all' );
+        wp_enqueue_script( 'digital-newspaper-wp-repeater', DIGITAL_NEWSPAPER_URL . '/inc/customizer/custom-controls/repeater/repeater.js', array( 'jquery' ), DIGITAL_NEWSPAPER_VERSION, true );
     }
 
     /**

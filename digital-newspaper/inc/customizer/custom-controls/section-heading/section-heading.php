@@ -35,7 +35,7 @@ if( class_exists( 'WP_Customize_Control' ) ) :
          * @since 3.4.0
          */
         public function enqueue() {
-            wp_enqueue_style( 'digital-newspaper-customizer-section-heading', get_template_directory_uri() . '/inc/customizer/custom-controls/section-heading/section-heading.css', array(), DIGITAL_NEWSPAPER_VERSION, 'all' );
+            wp_enqueue_style( 'digital-newspaper-customizer-section-heading', DIGITAL_NEWSPAPER_URL . '/inc/customizer/custom-controls/section-heading/section-heading.css', array(), DIGITAL_NEWSPAPER_VERSION, 'all' );
         }
 
         /**

@@ -6,7 +6,7 @@ use Digital_Newspaper\CustomizerDefault as DN;
 add_action( 'customize_preview_init', function() {
     wp_enqueue_script( 
         'digital-newspaper-customizer-preview',
-        get_template_directory_uri() . '/inc/customizer/assets/customizer-preview.js',
+        DIGITAL_NEWSPAPER_URL . '/inc/customizer/assets/customizer-preview.js',
         ['customize-preview'],
         DIGITAL_NEWSPAPER_VERSION,
         true
@@ -35,21 +35,21 @@ add_action( 'customize_controls_enqueue_scripts', function() {
     ));
 	wp_enqueue_style( 
         'digital-newspaper-customizer-control',
-        get_template_directory_uri() . '/inc/customizer/assets/customizer-controls.min.css',
+        DIGITAL_NEWSPAPER_URL . '/inc/customizer/assets/customizer-controls.min.css',
         array('wp-components'),
         DIGITAL_NEWSPAPER_VERSION,
         'all'
     );
     wp_enqueue_script( 
         'digital-newspaper-customizer-control',
-        get_template_directory_uri() . '/inc/customizer/assets/customizer-extends.min.js',
+        DIGITAL_NEWSPAPER_URL . '/inc/customizer/assets/customizer-extends.min.js',
         $buildControlsDeps,
         DIGITAL_NEWSPAPER_VERSION,
         true
     );
     wp_enqueue_script( 
         'digital-newspaper-customizer-extras',
-        get_template_directory_uri() . '/inc/customizer/assets/extras.min.js',
+        DIGITAL_NEWSPAPER_URL . '/inc/customizer/assets/extras.min.js',
         [],
         DIGITAL_NEWSPAPER_VERSION,
         true
@@ -196,7 +196,7 @@ if( !function_exists( 'digital_newspaper_customizer_global_panel' ) ) :
             'description' => esc_html__( 'Date format applied to single and archive pages.', 'digital-newspaper' ),
             'choices'   => array(
                 'theme_format'  => __( 'Default by theme', 'digital-newspaper' ),
-                'default'   => __( 'Wordpress default date', 'digital-newspaper' )
+                'default'   => __( 'WordPress default date', 'digital-newspaper' )
             )
         ));
 

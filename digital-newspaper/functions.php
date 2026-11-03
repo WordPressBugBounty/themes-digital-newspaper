@@ -18,6 +18,14 @@ if ( ! defined( 'DIGITAL_NEWSPAPER_PREFIX' ) ) {
 	define( 'DIGITAL_NEWSPAPER_PREFIX', 'digital_newspaper_' );
 }
 
+if ( ! defined( 'DIGITAL_NEWSPAPER_PATH' ) ) {
+	define( 'DIGITAL_NEWSPAPER_PATH', get_template_directory() );
+}
+
+if ( ! defined( 'DIGITAL_NEWSPAPER_URL' ) ) {
+	define( 'DIGITAL_NEWSPAPER_URL', get_template_directory_uri() );
+}
+
 /**
  * Sets up theme defaults and registers support for various WordPress features.
  *
@@ -33,7 +41,7 @@ function digital_newspaper_setup() {
 	* If you're building a theme based on Digital Newspaper, use a find and replace
 	* to change 'digital-newspaper' to the name of your theme in all the template files.
 	*/
-	load_theme_textdomain( 'digital-newspaper', get_template_directory() . '/languages' );
+	load_theme_textdomain( 'digital-newspaper', DIGITAL_NEWSPAPER_PATH . '/languages' );
 
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
@@ -133,18 +141,18 @@ add_action( 'after_setup_theme', 'digital_newspaper_content_width', 0 );
 /**
  * Implement the Custom Header feature.
  */
-require get_template_directory() . '/inc/custom-header.php';
+require DIGITAL_NEWSPAPER_PATH . '/inc/custom-header.php';
 
 /**
  * Custom template tags for this theme.
  */
-require get_template_directory() . '/inc/template-tags.php';
+require DIGITAL_NEWSPAPER_PATH . '/inc/template-tags.php';
 
 /**
  * Functions which enhance the theme by hooking into WordPress.
  */
-require get_template_directory() . '/inc/template-functions.php';
-require get_template_directory() . '/inc/admin/class-theme-info.php';
+require DIGITAL_NEWSPAPER_PATH . '/inc/template-functions.php';
+require DIGITAL_NEWSPAPER_PATH . '/inc/admin/class-theme-info.php';
 
 add_action( 'pre_get_posts', 'digital_newspaper_custom_get_posts' );
 function digital_newspaper_custom_get_posts( $query ) {

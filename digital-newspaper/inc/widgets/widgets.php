@@ -157,10 +157,10 @@ function digital_newspaper_widget_scripts($hook) {
     if( $hook !== "widgets.php" ) {
         return;
     }
-    wp_enqueue_style( 'digital-newspaper-widget', get_template_directory_uri() . '/inc/widgets/assets/widgets.css', array(), DIGITAL_NEWSPAPER_VERSION );
-	wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/lib/fontawesome/css/all.min.css', array(), '5.15.3', 'all' );
+    wp_enqueue_style( 'digital-newspaper-widget', DIGITAL_NEWSPAPER_URL . '/inc/widgets/assets/widgets.css', array(), DIGITAL_NEWSPAPER_VERSION );
+	wp_enqueue_style( 'fontawesome', DIGITAL_NEWSPAPER_URL . '/assets/lib/fontawesome/css/all.min.css', array(), '5.15.3', 'all' );
 	wp_enqueue_media();
-	wp_enqueue_script( 'digital-newspaper-widget', get_template_directory_uri() . '/inc/widgets/assets/widgets.js', array( 'jquery' ), DIGITAL_NEWSPAPER_VERSION, true );
+	wp_enqueue_script( 'digital-newspaper-widget', DIGITAL_NEWSPAPER_URL . '/inc/widgets/assets/widgets.js', array( 'jquery' ), DIGITAL_NEWSPAPER_VERSION, true );
 }
 add_action( 'admin_enqueue_scripts', 'digital_newspaper_widget_scripts' );
 

@@ -37,12 +37,12 @@ $demos_array = array(
         'plugins' => array(
             'elementor' => array(
                 'name' => 'Elementor',
-                'source' => 'wordpress',
+                'source' => 'WordPress',
                 'file_path' => 'elementor/elementor.php'
             ),
             'news-kit-elementor-addons' => array(
                 'name' => 'News Kit Elementor Addons',
-                'source' => 'wordpress',
+                'source' => 'WordPress',
                 'file_path' => 'news-kit-elementor-addons/news-kit-elementor-addons.php'
             )
         ),
@@ -229,17 +229,17 @@ $demos_array = array(
         'plugins' => array(
             'elementor' => array(
                 'name' => 'Elementor',
-                'source' => 'wordpress',
+                'source' => 'WordPress',
                 'file_path' => 'elementor/elementor.php'
             ),
             'news-kit-elementor-addons' => array(
                 'name' => 'News Kit Elementor Addons',
-                'source' => 'wordpress',
+                'source' => 'WordPress',
                 'file_path' => 'news-kit-elementor-addons/news-kit-elementor-addons.php'
             ),
             'news-kit-elementor-addons-pro' => array(
                 'name' => 'News Kit Elementor Addons Pro',
-                'source' => 'wordpress',
+                'source' => 'WordPress',
                 'file_path' => 'news-kit-elementor-addons-pro/news-kit-elementor-addons-pro.php'
             )
         ),
@@ -264,17 +264,17 @@ $demos_array = array(
         'plugins' => array(
             'elementor' => array(
                 'name' => 'Elementor',
-                'source' => 'wordpress',
+                'source' => 'WordPress',
                 'file_path' => 'elementor/elementor.php'
             ),
             'news-kit-elementor-addons' => array(
                 'name' => 'News Kit Elementor Addons',
-                'source' => 'wordpress',
+                'source' => 'WordPress',
                 'file_path' => 'news-kit-elementor-addons/news-kit-elementor-addons.php'
             ),
             'news-kit-elementor-addons-pro' => array(
                 'name' => 'News Kit Elementor Addons Pro',
-                'source' => 'wordpress',
+                'source' => 'WordPress',
                 'file_path' => 'news-kit-elementor-addons-pro/news-kit-elementor-addons-pro.php'
             )
         ),

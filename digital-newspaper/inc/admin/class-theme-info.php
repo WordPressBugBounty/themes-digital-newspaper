@@ -43,7 +43,7 @@ if( !class_exists( 'Digital_Newspaper_Theme_Info' ) ) :
             add_action( 'init', function(){
                 $this->theme_name = esc_html__( 'Digital Newspaper', 'digital-newspaper' );
                 $this->restriction_message = esc_html__( "You dont have permission to perform this action", "digital-newspaper" );
-                $this->demofile = include get_template_directory() . '/inc/admin/assets/demos.php';
+                $this->demofile = include DIGITAL_NEWSPAPER_PATH . '/inc/admin/assets/demos.php';
             });
             $this->version = wp_get_theme()->get( 'Version' );
             $this->digital_newspaper_disable_admin_notices = get_theme_mod( 'digital_newspaper_disable_admin_notices', false );
@@ -68,12 +68,12 @@ if( !class_exists( 'Digital_Newspaper_Theme_Info' ) ) :
             if( ! $this->digital_newspaper_disable_admin_notices ) :
                 $digital_newspaper_welcome_notice_dismiss = get_option( 'digital_newspaper_welcome_notice_dismiss' );
                 if( ! $digital_newspaper_welcome_notice_dismiss ) {
-                    wp_enqueue_style( 'digital-newspaper-welcome-notice', get_template_directory_uri() . '/inc/admin/assets/welcome-notice.css', array(), esc_attr( $this->version ), 'all' );
+                    wp_enqueue_style( 'digital-newspaper-welcome-notice', DIGITAL_NEWSPAPER_URL . '/inc/admin/assets/welcome-notice.css', array(), esc_attr( $this->version ), 'all' );
                 }
                 if( ! get_transient( 'digital_newspaper_show_review_notice' ) ) :
-                    wp_enqueue_style( 'digital-newspaper-admin-notice', get_template_directory_uri() . '/inc/admin/assets/admin-notice.css', array(), esc_attr( $this->version ), 'all' );
+                    wp_enqueue_style( 'digital-newspaper-admin-notice', DIGITAL_NEWSPAPER_URL . '/inc/admin/assets/admin-notice.css', array(), esc_attr( $this->version ), 'all' );
                 endif;
-                    wp_enqueue_script( 'digital-newspaper-admin-notice', get_template_directory_uri() . '/inc/admin/assets/admin-notice.js', array( 'jquery' ), esc_attr( $this->version ), true );
+                    wp_enqueue_script( 'digital-newspaper-admin-notice', DIGITAL_NEWSPAPER_URL . '/inc/admin/assets/admin-notice.js', array( 'jquery' ), esc_attr( $this->version ), true );
                     wp_localize_script( 'digital-newspaper-admin-notice', 'digitalNewspaperThemeInfoObject', array(
                         'ajaxUrl'   => esc_url( admin_url( 'admin-ajax.php' ) ),
                         '_wpnonce'  => wp_create_nonce( 'digital-newspaper-theme-info-nonce' ),
@@ -83,8 +83,8 @@ if( !class_exists( 'Digital_Newspaper_Theme_Info' ) ) :
             if( $hook != "appearance_page_digital-newspaper-info" ) {
                 return;
             }
-            wp_enqueue_style( 'digital-newspaper-info', get_template_directory_uri() . '/inc/admin/assets/info-page.css', array(), esc_attr( $this->version ), 'all' );
-            wp_enqueue_script( 'digital-newspaper-info', get_template_directory_uri() . '/inc/admin/assets/info-page.js', array( 'jquery' ), esc_attr( $this->version ), true );
+            wp_enqueue_style( 'digital-newspaper-info', DIGITAL_NEWSPAPER_URL . '/inc/admin/assets/info-page.css', array(), esc_attr( $this->version ), 'all' );
+            wp_enqueue_script( 'digital-newspaper-info', DIGITAL_NEWSPAPER_URL . '/inc/admin/assets/info-page.js', array( 'jquery' ), esc_attr( $this->version ), true );
             wp_localize_script( 'digital-newspaper-info', 'digitalNewspaperThemeInfoObject', array(
                 'ajaxUrl'   => esc_url( admin_url( 'admin-ajax.php' ) ),
                 '_wpnonce'  => wp_create_nonce( 'digital-newspaper-theme-info-nonce' )
@@ -500,7 +500,7 @@ if( !class_exists( 'Digital_Newspaper_Theme_Info' ) ) :
                         </div>
                     </div>
                 </div><!-- .notice-content-wrap -->
-                <img class="screenshot-wrap" src="<?php echo esc_url( get_template_directory_uri() . '/screenshot.png' ); ?>" height="200" height="200"/>
+                <img class="screenshot-wrap" src="<?php echo esc_url( DIGITAL_NEWSPAPER_URL . '/screenshot.png' ); ?>" height="200" height="200"/>
                 <div class="notice-dismiss-button"><?php esc_html_e( 'Dismiss this notice', 'digital-newspaper' ); ?></div>
             </div>
             <?php
@@ -632,7 +632,7 @@ class Digital_Newspaper_Notice {
     }
     // add notice scripts
     public function add_scripts() {
-        wp_enqueue_style( 'digital-newspaper-upgrade-notice', get_template_directory_uri() . '/inc/admin/assets/upgrade-notice.css', array(), '1.0.3', 'all' );
+        wp_enqueue_style( 'digital-newspaper-upgrade-notice', DIGITAL_NEWSPAPER_URL . '/inc/admin/assets/upgrade-notice.css', array(), '1.0.3', 'all' );
     }
 
     private function is_dismiss_notice(){

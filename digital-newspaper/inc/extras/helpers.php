@@ -64,7 +64,7 @@ if( !function_exists( 'digital_newspaper_advertisement_block_html' ) ) :
      */
     function digital_newspaper_top_header_html() {
         if( ! DN\digital_newspaper_get_customizer_option( 'top_header_option' ) ) return;
-        require get_template_directory() . '/inc/hooks/top-header-hooks.php'; // top header hooks.
+        require DIGITAL_NEWSPAPER_PATH . '/inc/hooks/top-header-hooks.php'; // top header hooks.
         echo '<div class="top-header">';
             echo '<div class="digital-newspaper-container">';
                 echo '<div class="row">';
@@ -88,7 +88,7 @@ if( !function_exists( 'digital_newspaper_header_html' ) ) :
      * @since 1.0.0
      */
     function digital_newspaper_header_html() {
-        require get_template_directory() . '/inc/hooks/header-hooks.php'; // top header hooks.
+        require DIGITAL_NEWSPAPER_PATH . '/inc/hooks/header-hooks.php'; // top header hooks.
         ?>
         <div class="main-header">
             <div class="site-branding-section">
@@ -159,7 +159,7 @@ if( !function_exists( 'digital_newspaper_after_header_html' ) ) :
     }
 endif;
 
-require get_template_directory() . '/inc/hooks/footer-hooks.php'; // footer hooks.
+require DIGITAL_NEWSPAPER_PATH . '/inc/hooks/footer-hooks.php'; // footer hooks.
 if( !function_exists( 'digital_newspaper_footer_sections_html' ) ) :
     /**
      * Calls footer hooks
@@ -196,7 +196,7 @@ if( !function_exists( 'digital_newspaper_bottom_footer_sections_html' ) ) :
      */
     function digital_newspaper_bottom_footer_sections_html() {
         if( ! DN\digital_newspaper_get_customizer_option( 'bottom_footer_option' ) ) return;
-        require get_template_directory() . '/inc/hooks/bottom-footer-hooks.php'; // footer hooks.
+        require DIGITAL_NEWSPAPER_PATH . '/inc/hooks/bottom-footer-hooks.php'; // footer hooks.
         $bottom_footer_width_layout = digial_newspaper_get_section_width_layout_val('bottom_footer_width_layout');
         ?>
         <div class="bottom-footer <?php echo esc_attr( 'width-' . $bottom_footer_width_layout ); ?>">
@@ -218,8 +218,8 @@ if( !function_exists( 'digital_newspaper_bottom_footer_sections_html' ) ) :
         <?php
     }
 endif;
-require get_template_directory() . '/inc/hooks/inner-hooks.php'; // inner hooks.
-require get_template_directory() . '/inc/hooks/frontpage-sections-hooks.php'; // frontpage sections hooks.
+require DIGITAL_NEWSPAPER_PATH . '/inc/hooks/inner-hooks.php'; // inner hooks.
+require DIGITAL_NEWSPAPER_PATH . '/inc/hooks/frontpage-sections-hooks.php'; // frontpage sections hooks.
 
 if ( ! function_exists( 'digital_newspaper_breadcrumb_trail' ) ) :
     /**
@@ -230,7 +230,7 @@ if ( ! function_exists( 'digital_newspaper_breadcrumb_trail' ) ) :
     function digital_newspaper_breadcrumb_trail() {
         if ( ! function_exists( 'breadcrumb_trail' ) ) {
             // load class file
-            require_once get_template_directory() . '/inc/breadcrumb-trail/breadcrumb-trail.php';
+            require_once DIGITAL_NEWSPAPER_PATH . '/inc/breadcrumb-trail/breadcrumb-trail.php';
         }
 
         // arguments variable
