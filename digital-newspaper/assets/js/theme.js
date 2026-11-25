@@ -6,6 +6,14 @@
  */
 jQuery(document).ready(function($) {
     "use strict"
+
+    /**
+     * Never let DOM-supplied JSON configure Slick
+     * Fixes: WordPress Digital Newspaper theme <= 1.1.19 is vulnerable to Cross Site Scripting (XSS)
+     * 
+     * @since 1.1.20
+     */
+    $( '[data-slick]' ).removeAttr( 'data-slick' ).removeData( 'slick' );
     var ajaxUrl = digitalNewspaperObject.ajaxUrl, _wpnonce = digitalNewspaperObject._wpnonce, sttOption = digitalNewspaperObject.stt, query_vars = digitalNewspaperObject.query_vars, paged = digitalNewspaperObject.paged, stickeyHeader = digitalNewspaperObject.sticky_header;
 
     setTimeout(function() {

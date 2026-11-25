@@ -72,6 +72,9 @@ License: The MIT License
 
 == Changelog ==
 
+= 1.1.20 - November 25th, 2026 =
+    * Security: Fixed stored XSS via the `data-slick` attribute by stripping it before carousels initialize.
+
 = 1.1.19 - October 27th, 2026 =
     * Code: Introduced theme path and URI constants for cleaner, more consistent file includes.
     * Tested: Verified compatibility with PHP 8.5.12 (latest patched release). No issues found.
